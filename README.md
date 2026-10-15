@@ -7,21 +7,21 @@ An end-to-end, enterprise-grade business intelligence solution built in **Power 
 ## 📸 Project Screenshots & Visual Gallery
 
 ### 1. Model Relationships & Galaxy Star Schema
-![Relationships](relationships.png)
+![Relationships](ScreenShots/relationships.png)
 
 ### 2. Rolling Averages & Time Intelligence
-![Averages DAX](averages_daxs.png)
+![Averages DAX](ScreenShots/averages_daxs.png)
 
 ### 3. Customer Segment Cohort Analysis
-![Customer Segment Cohort](customer_segment_cohort.png)
+![Customer Segment Cohort](ScreenShots/customer_segment_cohort.png)
 
 ### 4. Dimension & Fact Table Previews
-* **Campaign Dimension:** ![Dim Campaign](dim_campaign.png)
-* **Customer Dimension:** ![Dim Customer](dim_customer.png)
-* **Product Dimension:** ![Dim Product](dim_product.png)
-* **Inventory Fact Table:** ![Fact Inventory](fact_inventory.png)
-* **Sales Fact Table:** ![Fact Sales](fact_sales.png)
-* **Order Process Fact Table:** ![Fact Order Process](fact_order_process.png)
+* **Campaign Dimension:** ![Dim Campaign](ScreenShots/dim_campaign.png)
+* **Customer Dimension:** ![Dim Customer](ScreenShots/dim_customer.png)
+* **Product Dimension:** ![Dim Product](ScreenShots/dim_product.png)
+* **Inventory Fact Table:** ![Fact Inventory](ScreenShots/fact_inventory.png)
+* **Sales Fact Table:** ![Fact Sales](ScreenShots/fact_sales.png)
+* **Order Process Fact Table:** ![Fact Order Process](ScreenShots/fact_order_process.png)
 
 ---
 
