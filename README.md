@@ -1,65 +1,81 @@
-# Enterprise Sales, Inventory & Operations Analytics Portfolio
+# 🚀 Enterprise Sales, Inventory & Operations Analytics Portfolio
 
-An end-to-end business intelligence solution built in Power BI, featuring an advanced Galaxy Star Schema data architecture, robust Power Query ETL pipelines, and a sophisticated DAX semantic layer utilizing window functions, dynamic parameters, and role-playing time intelligence.
-
----
-
-## Executive Summary
-This portfolio project simulates a global enterprise data warehouse environment. It consolidates multi-year sales transactions, inventory snapshots, marketing campaigns, customer master data, and supply chain fulfillment logs into a unified, high-performance analytical model optimized for executive decision-making.
+An end-to-end, enterprise-grade business intelligence solution built in **Power BI**, featuring an advanced **Galaxy Star Schema** data architecture, robust **Power Query ETL pipelines**, and a sophisticated **DAX semantic layer** utilizing window functions, dynamic parameters, and role-playing time intelligence.
 
 ---
 
-## Data Architecture: Galaxy Star Schema
+## 📸 Project Screenshots & Visual Gallery
 
-The data model uses a Galaxy Schema (Constellation Schema) where multiple fact tables share conformed dimension tables, ensuring cross-functional consistency across Sales, Inventory, Logistics, and Campaigns.
+### 1. Model Relationships & Galaxy Star Schema
+![Relationships](relationships.png)
 
-### Core Architecture Components:
-* Dimension Tables (02_dim): dim_customer, dim_product, dim_calendar, dim_geo, dim_campaign, and dim_flag (Junk Dimension combining order channels, statuses, and priorities).
-* Fact Tables (03_fact):
-  * fact_sales (Granular line-item sales transactions)
-  * fact_inventory (Monthly product stock level balances)
-  * fact_order_process (Supply chain lead-time and milestone tracking)
-  * fact_target_revenue (Budget vs. actual tracking)
-* Bridge Tables: fact_campaign_product to resolve many-to-many relationships between marketing campaigns and promoted product SKUs.
+### 2. Rolling Averages & Time Intelligence
+![Averages DAX](averages_daxs.png)
 
----
+### 3. Customer Segment Cohort Analysis
+![Customer Segment Cohort](customer_segment_cohort.png)
 
-## Power Query ETL Pipeline & Data Governance
-
-* Staging & Load Separation: Maintained a dedicated 01_dataset group containing 22 raw staging queries with "Enable Load" disabled, ensuring zero redundant memory consumption in the VertiPaq engine.
-* Structural Transformation: Transformed wide matrix formats in raw inventory sheets into tall, relational time-series structures via Unpivot operations.
-* Surrogate Key Generation: Engineered clean integer-based surrogate keys (product_key, customer_id, flag_key, geo_key) across dimensions to maximize indexing and join performance.
+### 4. Dimension & Fact Table Previews
+* **Campaign Dimension:** ![Dim Campaign](dim_campaign.png)
+* **Customer Dimension:** ![Dim Customer](dim_customer.png)
+* **Product Dimension:** ![Dim Product](dim_product.png)
+* **Inventory Fact Table:** ![Fact Inventory](fact_inventory.png)
+* **Sales Fact Table:** ![Fact Sales](fact_sales.png)
+* **Order Process Fact Table:** ![Fact Order Process](fact_order_process.png)
 
 ---
 
-## Advanced DAX Semantic Layer & Time Intelligence
+## 📊 Executive Summary
 
-### 1. Role-Playing Date Dimensions (USERELATIONSHIP)
-To analyze supply chain performance across different milestones without relationship ambiguity, the model utilizes a primary active relationship on order_date and inactive relationships on ship_date, delivery_date, and pay_date.
+This portfolio project models a global enterprise data warehouse environment. It consolidates multi-year sales transactions, monthly inventory snapshots, promotional marketing campaigns, customer master data, and supply chain fulfillment logs into a unified, high-performance analytical model optimized for executive decision-making.
 
-### 2. Dynamic Rolling 6-Month Window Average
-Leveraging modern DAX WINDOW functions to compute sliding financial trend analysis:
-- Calculated over a 6-month sliding window dynamically adjusted by calendar sort index.
-
-### 3. Dynamic Top-N Products with "Others" Grouping
-Enables users to dynamically select N top products via parameter slicers while automatically grouping remaining tail items into an aggregated "Others" bucket.
-
-### 4. Pareto (80/20) Cumulative Contribution Analysis
-Calculates cumulative revenue share to identify core revenue-generating product tiers (e.g., top 30% or top 50% products).
+### Key Business Achievements:
+* **Unified Cross-Functional Reporting:** Merged disparate operational datasets across Sales, Inventory, Marketing, and Operations into a single Galaxy Schema model.
+* **Advanced Financial & Operational DAX:** Developed complex DAX logic for sliding 6-month rolling averages, dynamic Top-N product segmentation with "Others" aggregation, and Pareto (80/20) revenue share analyses.
+* **Role-Playing Date Intelligence:** Enabled multi-milestone supply chain tracking (`order_date`, `ship_date`, `delivery_date`, `pay_date`) without dimensional duplication using DAX `USERELATIONSHIP`.
 
 ---
 
-## Dashboard Page Structure & UX/UI
+## 📐 Data Architecture: Galaxy Star Schema
 
-1. Executive Overview Page: High-level KPI cards (Total Revenue, Gross Margin %, YoY Growth, Actual vs Target Variance) paired with monthly trend lines and regional performance maps.
-2. Sales & Product Deep-Dive: Matrix breakdowns by subcategory, brand, and product name integrated with dynamic Top-N and Pareto segmentation filters.
-3. Operations & Fulfillment: Lead-time analytics measuring processing duration from order placement to final delivery, alongside inventory stock health tracking.
+The data model uses a **Galaxy Schema** (Constellation Schema) where multiple fact tables share conformed dimension tables, ensuring cross-functional consistency across Sales, Inventory, Logistics, and Campaigns.
+
+### Table Inventory & Schema Breakdown
+
+| Group | Table Name | Type | Key Columns | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **`02_dim`** | `dim_customer` | Dimension | `customer_id` | Customer profiles, account managers, credit limits, and addresses. |
+| **`02_dim`** | `dim_product` | Dimension | `product_key` | Product details, subcategories, brands, unit prices, and suppliers. |
+| **`02_dim`** | `dim_calendar` | Dimension | `Date` | Conformed date dimension with month/year sorting indexes. |
+| **`02_dim`** | `dim_geo` | Dimension | `geo_key` | Geographic lookup hierarchy (Region, City, Street). |
+| **`02_dim`** | `dim_campaign` | Dimension | `campaign_key` | Marketing campaign details, start/end dates, and budgets. |
+| **`02_dim`** | `dim_flag` | Junk Dim | `flag_key` | Combined order attributes (`order_channel`, `status`, `priority`). |
+| **`03_fact`** | `fact_sales` | Fact Table | `line_id` | Granular order line-item sales, quantities, unit costs, and revenue. |
+| **`03_fact`** | `fact_inventory` | Fact Table | `product_key`, `month` | Monthly stock levels per product unpivoted into time-series records. |
+| **`03_fact`** | `fact_order_process` | Fact Table | `order_id` | Logistics tracking timestamps (`order_date`, `ship_date`, `delivery_date`, `pay_date`). |
+| **`03_fact`** | `fact_target_revenue` | Fact Table | `Period` | Monthly revenue target targets vs. actuals. |
+| **`03_fact`** | `fact_factles` | Bridge Table | `product_key`, `campaign_key` | Bridge table connecting promotional campaigns to promoted products. |
 
 ---
 
-## Tech Stack & Tools
-* BI Engine: Power BI Desktop (VertiPaq Engine)
-* ETL & Data Prep: Power Query (M Language)
-* Data Modeling: Galaxy Star Schema, Junk Dimensions, Bridge Tables, Role-Playing Relationships
-* Calculations: Advanced DAX (WINDOW, USERELATIONSHIP, TOPN, EXCEPT, Time Intelligence)
-* Version Control: Git & GitHub
+## 🔄 Power Query ETL Pipeline & Data Governance
+
+1. **Staging & Load Separation:**
+   * Organised 22 raw source queries inside a dedicated `01_dataset` staging group with **"Enable Load" disabled**. This prevents uncleaned staging tables from polluting the VertiPaq memory footprint.
+2. **Matrix Unpivoting (`fact_inventory`):**
+   * Converted raw wide matrix formats into a tall, relational time-series structure using **Unpivot Other Columns**.
+3. **Surrogate Key Generation:**
+   * Engineered integer surrogate keys (`product_key`, `customer_id`, `flag_key`, `geo_key`) across dimensions to optimize compression and indexing.
+
+---
+
+## ⚡ Complete DAX Semantic Layer & Code Library
+
+### 1. Core Financial Measures
+
+```dax
+total_sales = SUM(fact_sales[line_total])
+total_cost = SUMX(fact_sales, fact_sales[quantity] * fact_sales[unit_cost])
+margin = [total_sales] - [total_cost]
+margin% = DIVIDE([margin], [total_sales], 0)
+no of orders = DISTINCTCOUNT(fact_sales[order_id])
